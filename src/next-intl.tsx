@@ -16,6 +16,7 @@ export function pickMessages(
 export function compileMessages(
   messages: Partial<Messages>
 ): Partial<Messages> {
+  // Would call `compile` from `icu-to-json/compiler`
   const compiled: Partial<Messages> = compilePart(messages);
   (compiled as any)._compiled = true;
   return compiled;
@@ -45,7 +46,9 @@ export function NextIntlClientProvider({
 
 // Could be the implementation of NextIntlClientProvider for the `react-server` environment
 // (i.e. depending on if you import this component into an RSC or not, we can swap the
-// implementation of the provider).
+// implementation of the provider). Or maybe we should be more explicit about this
+// and have e.g. `NextIntlProvider` for the legacy implementation and `NextIntlClientProvider`
+// for the modern implementation that automatically tree-shakes and uses `icu-to-json`.
 export async function NextIntlClientProviderRSC({
   children,
   _namespaces
