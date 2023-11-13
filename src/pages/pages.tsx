@@ -2,7 +2,7 @@ import Hello from '../components/Hello';
 import fetchMessages from '../fetchMessages';
 import {compileMessages, pickMessages} from '../next-intl';
 
-export default function PagesRouter() {
+export default function Pages() {
   return <Hello />;
 }
 

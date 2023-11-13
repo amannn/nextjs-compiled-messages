@@ -1,5 +1,6 @@
 import pick from 'lodash/pick';
 import {ReactNode} from 'react';
+import fetchMessages from './fetchMessages';
 
 export type Messages = typeof import('../messages/en.json');
 
@@ -57,7 +58,7 @@ export async function NextIntlClientProviderRSC({
   _namespaces: Array<string>;
 }) {
   // Step 1: Fetch messages from `i18n.ts`
-  const messages = await getMessages('en');
+  const messages = await getMessages();
 
   // Step 2: Tree-shake the messages
   const clientMessages = pickMessages(messages, _namespaces);
@@ -86,12 +87,9 @@ export function useTranslations(namespace: string) {
   };
 }
 
-export async function getMessages(locale: 'en') {
-  const messagesModule = await import(`../messages/${locale}.json`);
+export async function getMessages() {
+  // Can be read based on a route segment
+  const locale = 'en';
 
-  // In the Pages Router, the result of the JSON
-  // import needs some help to be serializable
-  const messages = {...messagesModule};
-
-  return messages;
+  return fetchMessages(locale);
 }
