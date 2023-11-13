@@ -6,7 +6,7 @@ import {NextIntlClientProviderRSC} from '@/next-intl';
 export default async function ImplicitPage() {
   return (
     <NextIntlClientProviderRSC
-      _namespaces={/* automatically provided */ ['Hello']}
+      _namespaces={['Hello']} // Automatically provided
     >
       <Hello />
     </NextIntlClientProviderRSC>
