@@ -4,7 +4,13 @@ import deepPick from './utils/deepPick';
 
 export type Messages = typeof import('../messages/en.json');
 
-/** This function is replaced at compile-time with the result. */
+// This function is replaced at compile-time with the result.
+// Using a function for retrieving the keys might have the
+// benefit that it's clear which module determines where
+// the keys are coming from. E.g. calling this in a shared
+// utility module would result in no keys being found.
+// That might be a bit clearer with this API in comparison
+// to providing a magic argument to an API like `pickMessages`.
 export function getClientKeys() {
   return {
     'Hello.text': true
