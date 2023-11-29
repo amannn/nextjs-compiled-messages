@@ -23,3 +23,10 @@ export async function getServerSideProps() {
 
   return {props: {messages: compiled}};
 }
+
+// Can also be implemented with a shared utility function:
+//
+// export async function getServerSideProps(context) {
+//   const compiled = loadMessages(context.locale, getClientKeys())
+//   return {props: {messages: compiled}};
+// }
