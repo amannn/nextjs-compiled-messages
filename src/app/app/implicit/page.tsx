@@ -7,7 +7,13 @@ export default async function ImplicitPage() {
   return (
     <NextIntlAutoClientProvider
       // Automatically provided
-      _keys={getClientKeys()}
+      // _keys={getClientKeys()}
+      _keys={
+        // Build time: hash / location of file
+        // Run time: load used keys from disk
+        // ??? how to load from disk?
+        //
+      }
     >
       <Hello />
     </NextIntlAutoClientProvider>
