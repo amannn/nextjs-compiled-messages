@@ -80,6 +80,7 @@ export async function NextIntlAutoClientProvider({
   return <>{children}</>;
 }
 
+// Maybe with alias? import {useTranslations} from 'next-intl/compiled'
 export function useTranslations(namespace: string) {
   const messages = (globalThis as any).messages;
   const isCompiled = (messages as any)._icuToJson;
