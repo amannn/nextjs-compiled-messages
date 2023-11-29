@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import {NextIntlClientProvider} from '../next-intl';
+import {NextIntlClientProvider} from '@/next-intl';
 
 export default function App({Component, pageProps}: any) {
   return (

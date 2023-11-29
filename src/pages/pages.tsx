@@ -1,6 +1,6 @@
-import Hello from '../components/Hello';
-import fetchMessages from '../utils/fetchMessages';
-import {compileMessages, getClientKeys} from '../next-intl';
+import Hello from '@/components/Hello';
+import fetchMessages from '@/utils/fetchMessages';
+import {compileMessages, getClientKeys} from '@/next-intl';
 import deepPick from '@/utils/deepPick';
 
 export default function Pages() {
