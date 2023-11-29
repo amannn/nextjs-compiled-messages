@@ -1,6 +1,7 @@
 import Hello from '../components/Hello';
-import fetchMessages from '../fetchMessages';
-import {compileMessages, pickMessages} from '../next-intl';
+import fetchMessages from '../utils/fetchMessages';
+import {compileMessages, getClientKeys} from '../next-intl';
+import deepPick from '@/utils/deepPick';
 
 export default function Pages() {
   return <Hello />;
@@ -11,9 +12,10 @@ export async function getServerSideProps() {
   const messages = await fetchMessages('en');
 
   // Step 2: Tree-shake the messages
-  const clientMessages = pickMessages(
+  const clientMessages = deepPick(
     messages,
-    /* automatically provided */ ['Hello']
+    // This function gets replaced at compile time with the result
+    getClientKeys()
   );
 
   // Step 3: Compile the messages

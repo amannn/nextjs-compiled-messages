@@ -1,17 +1,15 @@
 import pick from 'lodash/pick';
 import {ReactNode} from 'react';
-import fetchMessages from './fetchMessages';
+import fetchMessages from './utils/fetchMessages';
+import deepPick from './utils/deepPick';
 
 export type Messages = typeof import('../messages/en.json');
 
-export function pickMessages(
-  messages: Messages,
-  // This could be an object like
-  // `{"PagesRouter": { "hello": true }}`
-  // to allow tree shaking deeply.
-  namespaces: Array<string>
-): Partial<Messages> {
-  return pick(messages, namespaces);
+/** This function is replaced at compile-time with the result. */
+export function getClientKeys() {
+  return {
+    'Hello.text': true
+  };
 }
 
 export function compileMessages(
@@ -50,18 +48,18 @@ export function NextIntlClientProvider({
 // implementation of the provider). Or maybe we should be more explicit about this
 // and have e.g. `NextIntlProvider` for the legacy implementation and `NextIntlClientProvider`
 // for the modern implementation that automatically tree-shakes and uses `icu-to-json`.
-export async function NextIntlClientProviderRSC({
+export async function NextIntlAutoClientProvider({
   children,
-  _namespaces
+  _keys
 }: {
   children: ReactNode;
-  _namespaces: Array<string>;
+  _keys: Record<string, boolean>;
 }) {
   // Step 1: Fetch messages from `i18n.ts`
   const messages = await getMessages();
 
   // Step 2: Tree-shake the messages
-  const clientMessages = pickMessages(messages, _namespaces);
+  const clientMessages = deepPick(messages, _keys);
 
   // Step 3: Compile the messages
   const compiled = compileMessages(clientMessages);
