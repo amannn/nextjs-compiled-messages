@@ -1,4 +1,3 @@
-import pick from 'lodash/pick';
 import {ReactNode} from 'react';
 import fetchMessages from './utils/fetchMessages';
 import deepPick from './utils/deepPick';
