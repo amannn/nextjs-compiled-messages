@@ -11,6 +11,9 @@ export type Messages = typeof import('../messages/en.json');
 // utility module would result in no keys being found.
 // That might be a bit clearer with this API in comparison
 // to providing a magic argument to an API like `pickMessages`.
+// This also allows to to move loading of messages as well
+// as compilation of messages into a utility function like
+// `loadMessages(locale, getClientKeys())`.
 export function getClientKeys() {
   return {
     'Hello.text': true
