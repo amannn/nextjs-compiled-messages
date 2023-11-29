@@ -22,7 +22,7 @@ export function compileMessages(
 ): Partial<Messages> {
   // Would call `compile` from `icu-to-json/compiler`
   const compiled: Partial<Messages> = compilePart(messages);
-  (compiled as any)._compiled = true;
+  (compiled as any)._icuToJson = true;
   return compiled;
 }
 
@@ -31,7 +31,9 @@ function compilePart(messages: Partial<Messages>) {
   for (const key of Object.keys(messages)) {
     const value = (messages as any)[key];
     (compiled as any)[key] =
-      typeof value === 'string' ? value + ' (compiled)' : compilePart(value);
+      typeof value === 'string'
+        ? value + ' (compiled with icu-to-json)'
+        : compilePart(value);
   }
   return compiled;
 }
@@ -77,7 +79,7 @@ export async function NextIntlAutoClientProvider({
 
 export function useTranslations(namespace: string) {
   const messages = (globalThis as any).messages;
-  const isCompiled = (messages as any)._compiled;
+  const isCompiled = (messages as any)._icuToJson;
 
   if (isCompiled) {
     // Load runtime from icu-to-json
