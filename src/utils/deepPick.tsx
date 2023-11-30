@@ -15,15 +15,15 @@ import set from 'lodash/set';
  *
  * const picked = deepPick(obj, { 'one.two': true, 'one.three.four': true });
  */
-export default function deepPick(obj: object, keys: Record<string, boolean>) {
+export default function deepPick(obj: object, keys: string[]) {
   const result = {};
 
-  Object.keys(keys).forEach((key) => {
+  for (const key of keys) {
     const value = get(obj, key);
     if (value !== undefined) {
       set(result, key, value);
     }
-  });
+  }
 
   return result;
 }

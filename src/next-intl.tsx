@@ -15,9 +15,7 @@ export type Messages = typeof import('../messages/en.json');
 // as compilation of messages into a utility function like
 // `loadMessages(locale, getClientKeys())`.
 export function getClientKeys() {
-  return {
-    'Hello.text': true
-  };
+  return ['Hello.text'];
 }
 
 export function compileMessages(
@@ -63,7 +61,7 @@ export async function NextIntlAutoClientProvider({
   _keys
 }: {
   children: ReactNode;
-  _keys: Record<string, boolean>;
+  _keys: string[];
 }) {
   // Step 1: Fetch messages from `i18n.ts`
   const messages = await getMessages();
